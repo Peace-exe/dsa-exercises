@@ -1,12 +1,39 @@
-def productExceptSelf(self, nums: list[int]) -> list[int]:
+def productExceptSelf(nums: list[int]) -> list[int]:
 
-    start=1
-    end=0
     res=[]
+    prefix=[]
+    suffix = []
+    
+    leftProd = 1
+    rightProd = 1
+    if not nums:
+        return []
+    
+    for i in range(len(nums)):
 
-    while end<len(nums):
-        
-        if(start==end):
-            end+=1
+        if(i==0):
+            prefix.append(leftProd)
+        else:
+            leftProd=prefix[i-1]*nums[i-1]
+            prefix.append(leftProd)
+    
+    for j in range(len(nums)-1,-1,-1):
+        if(j==len(nums)-1):
+            suffix.append(rightProd)
+        else:
+            rightProd=suffix[len(suffix)-1]*nums[j+1]
+            suffix.append(rightProd)
+    
+    suffix= suffix[::-1]
+
+    for k in range(len(nums)):
+        res.append(prefix[k]*suffix[k])
+    
+    return res
+
+nums=[1,2,3,4]
+print(productExceptSelf(nums))
+
+    
         
         
