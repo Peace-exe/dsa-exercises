@@ -1,22 +1,29 @@
 def isValid(s:str):
 
     brackets = {
-        "(":")",
-        "[":"]",
-        "{":"}"
+        ")":"(",
+        "]":"[",
+        "}":"{"
+
 
     }
-
     stack =[]
 
+    for b in s:
+
+        if b not in brackets:
+            stack.append(b)
+        else:
+
+            if not stack:
+                return False
+            else:
+                popped = stack.pop()
+                if popped != brackets[b]:
+                    return False
     
-    
-    for i in range(len(stack)):
-        stack.append(s[i])
-
-        if s[i-1] s[i]==brackets[s[i-1]]:
-            stack.pop()
-            stack.pop()
+    return not stack
 
 
-print(isValid("([])"))
+
+print(isValid("({}])"))
