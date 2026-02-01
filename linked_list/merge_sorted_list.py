@@ -1,7 +1,7 @@
 from typing import Optional
 
 class ListNode:
-    def __init__(self, val, next=None):
+    def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
@@ -28,7 +28,17 @@ def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode])-> Option
 
         if list1.val < list2.val:
             curr.next = list1
+            curr = list1
+            list1 = list1.next
             
+        else:
+            curr.next = list2
+            curr = list2
+            list2 = list2.next
+    
+    curr.next = list1 if list1 else list2
+
+    return res.next
 
 list1 = createList([1,2,4])
 list2 = createList([1,3,4])
