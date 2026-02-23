@@ -33,13 +33,35 @@ def createList(arr):
 
 
 def copyRandomList(head: 'Optional[Node]') -> 'Optional[Node]':
+        
+        if head is None:
+            return None
+
         hashmap = {}
 
         curr = head
-        i=0
         while curr:
-            hashmap[int(i)]= Node(curr.val)
-            i+=1
-        return hashmap
+             hashmap[curr]= Node(curr.val)
+             curr=curr.next
+        
+        for key in hashmap:
+            if key.next is not None:
+                hashmap[key].next = hashmap[key.next]
+            else:
+                hashmap[key].next = None
+            
+            if key.random is not None:
+                hashmap[key].random = hashmap[key.random]
+            else:
+                hashmap[key].random=None
+        
+        return hashmap[head]
 
-print(create())
+
+            
+        
+
+
+
+head = createList([[7,None],[13,0],[11,4],[10,2],[1,0]])
+print(copyRandomList(head))
